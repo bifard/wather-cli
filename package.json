@@ -2,6 +2,7 @@
   "name": "weather-cli",
   "version": "1.0.0",
   "main": "weather.js",
+  "type": "module",
   "bin": {
     "weather": "./weather.js"
   },

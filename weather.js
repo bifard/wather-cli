@@ -1,25 +1,33 @@
 #!/usr/bin/env node
 import { getArgs } from "./helpers/args.js";
+import { getWeatherByCity } from "./services/api.service.js";
 import { printError, printSuccess } from "./services/log.service.js";
 
-import { saveKeyValue } from "./services/storage.service.js";
+import { saveKeyValue, KEY_DICTIONARY } from "./services/storage.service.js";
 
 const saveToken = async (token) => {
   try {
-    await saveKeyValue("token", token);
+    await saveKeyValue(KEY_DICTIONARY.token, token);
     printSuccess("Токен успешно сохранен");
   } catch (error) {
     printError(`Ошибка сохранения токена : ${error.message}`);
   }
 };
 const initCLI = async () => {
-  const args = getArgs(process.argv);
-  if (args.h) {
-  }
-  if (args.s) {
-  }
-  if (args.t) {
-    return saveToken(args.t);
+  try {
+    const args = getArgs(process.argv);
+    const city = args.s;
+    if (args.h) {
+    }
+    if (!args.s) {
+    }
+    if (args.t) {
+      await saveToken(args.t);
+    }
+    const weather = await getWeatherByCity(city);
+    printSuccess(weather);
+  } catch (error) {
+    printError(error);
   }
 };
 initCLI();

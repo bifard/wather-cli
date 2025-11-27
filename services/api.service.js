@@ -7,9 +7,30 @@ const getWeatherByCity = async (city) => {
   if (!token) {
     throw new Error("Задайте токен через -t [API_TOKEN], получить токен можно на https://weatherstack.com/");
   }
-  const { data } = await axios.get("http://api.weatherstack.com/current", {
+  const httpClient = axios.create();
+  httpClient.interceptors.response.use(
+    (res) => {
+      if (res.data.success === false && res.data.error?.code === 101) {
+        res.status = 401;
+        const error = new axios.AxiosError(
+          res.data.error?.info || "Ошибка запроса к API",
+          401,
+          res.config,
+          res.request,
+          res
+        );
+        return Promise.reject(error);
+      }
+      return res;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  const { data } = await httpClient.get("http://api.weatherstack.com/current", {
     params: {
-      access_key: "ba6c7cbd2799b160db1f964244ea8b0e",
+      access_key: token,
       query: city,
     },
   });

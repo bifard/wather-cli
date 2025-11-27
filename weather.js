@@ -13,6 +13,19 @@ const saveToken = async (token) => {
     printError(`Ошибка сохранения токена : ${error.message}`);
   }
 };
+
+const getForcast = async (city) => {
+  try {
+    const weather = await getWeatherByCity(city);
+    printSuccess(weather);
+  } catch (error) {
+    if (error?.response?.status === 401) {
+      printError("Не уверно указан токен");
+    } else {
+      printError(error.message);
+    }
+  }
+};
 const initCLI = async () => {
   try {
     const args = getArgs(process.argv);
@@ -24,8 +37,8 @@ const initCLI = async () => {
     if (args.t) {
       await saveToken(args.t);
     }
-    const weather = await getWeatherByCity(city);
-    printSuccess(weather);
+
+    getForcast(city);
   } catch (error) {
     printError(error);
   }

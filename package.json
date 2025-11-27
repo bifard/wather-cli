@@ -1,5 +1,5 @@
 {
-  "name": "weather-cli",
+  "name": "weather-cli-aresk",
   "version": "1.0.0",
   "main": "weather.js",
   "type": "module",
@@ -9,12 +9,12 @@
   "scripts": {
     "start": "node weather.js"
   },
-  "author": "",
+  "author": "aresk",
   "license": "ISC",
-  "description": "",
+  "description": "cli для погоды",
   "dependencies": {
-    "axios": "^1.13.2",
-    "chalk": "^5.6.2",
-    "dedent-js": "^1.0.1"
+    "axios": "1.13.2",
+    "chalk": "5.6.2",
+    "dedent-js": "1.0.1"
   }
 }

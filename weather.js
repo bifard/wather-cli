@@ -49,7 +49,6 @@ const saveCity = async (city) => {
 const initCLI = async () => {
   try {
     const args = getArgs(process.argv);
-    const city = args.s;
     if (args.h) {
       printHelp();
       return;

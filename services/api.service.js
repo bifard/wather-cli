@@ -7,6 +7,7 @@ const getWeatherByCity = async (city) => {
   if (!token) {
     throw new Error("Задайте токен через -t [API_TOKEN], получить токен можно на https://weatherstack.com/");
   }
+
   const httpClient = axios.create();
   httpClient.interceptors.response.use(
     (res) => {

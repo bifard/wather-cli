@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { getArgs } from "./helpers/args.js";
 import { getWeatherByCity } from "./services/api.service.js";
-import { printError, printHelp, printSuccess } from "./services/log.service.js";
+import { printError, printHelp, printSuccess, printWeather } from "./services/log.service.js";
 
 import { saveKeyValue, KEY_DICTIONARY, getKeyValue } from "./services/storage.service.js";
 
@@ -25,7 +25,7 @@ const getForcast = async () => {
       throw Error("Задайте город через -s [CITY_NAME]");
     }
     const weather = await getWeatherByCity(city);
-    printSuccess(weather);
+    printWeather(weather);
   } catch (error) {
     if (error?.response?.status === 401) {
       printError("Не уверно указан токен");

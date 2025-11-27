@@ -41,6 +41,7 @@ const saveCity = async (city) => {
   }
   try {
     await saveKeyValue(KEY_DICTIONARY.city, city);
+    printSuccess("Город успешно сохранен");
   } catch (error) {
     printError(`Ошибка сохранения города : ${error.message}`);
   }
